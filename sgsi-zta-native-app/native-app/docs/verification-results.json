@@ -1,0 +1,34 @@
+{
+  "milestone": "Native M0-M1",
+  "date": "2026-10-03",
+  "M0": "PASS",
+  "M1": "PASS",
+  "M2": "NOT_IMPLEMENTED",
+  "backend_postgresql_tests": {
+    "passed": 30,
+    "warnings": 1,
+    "seconds": 68.11
+  },
+  "frontend_tests": {
+    "passed": 2
+  },
+  "proxy_smoke": "PASS",
+  "legacy_source_paths_unchanged": 124,
+  "ui_qa": {
+    "status": "PASS",
+    "database": "isolated SQLite for UI QA",
+    "checks": [
+      "login",
+      "dashboard API",
+      "user creation",
+      "user disabling",
+      "search",
+      "mobile navigation without overflow",
+      "logout",
+      "operational role scope",
+      "restricted user view"
+    ],
+    "browser_errors": 0
+  },
+  "public_demo": "NOT_IMPLEMENTED"
+}

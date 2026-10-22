@@ -1,0 +1,114 @@
+name: sgsi-zta-native
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-sgsi_zta_db}
+      POSTGRES_USER: ${POSTGRES_USER:-sgsi_native}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Run scripts/init_env.py first}
+    volumes:
+      - native-postgres:/var/lib/postgresql/data
+    networks: [database]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+    security_opt: [no-new-privileges:true]
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: sgsi-zta-native-backend:local
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-sgsi_native}:${POSTGRES_PASSWORD:?Required}@postgres:5432/${POSTGRES_DB:-sgsi_zta_db}
+      JWT_SECRET: ${JWT_SECRET:?Run scripts/init_env.py first}
+      MFA_ENCRYPTION_KEY: ${MFA_ENCRYPTION_KEY:?Run scripts/upgrade_env.py first}
+      DEMO_PASSWORD: ${DEMO_PASSWORD:?Run scripts/init_env.py first}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS:-["http://127.0.0.1:8090","http://localhost:8090"]}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-["localhost","127.0.0.1","backend","testserver"]}
+    depends_on:
+      postgres: {condition: service_healthy}
+    networks: [application, database]
+    healthcheck:
+      test: [CMD, python, -c, 'import urllib.request; urllib.request.urlopen("http://127.0.0.1:8000/api/v1/health", timeout=3)']
+      interval: 5s
+      timeout: 4s
+      retries: 30
+      start_period: 15s
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+
+  frontend:
+    build: ./frontend
+    image: sgsi-zta-native-frontend:local
+    user: '10001:10001'
+    cap_drop: [ALL]
+    ports:
+      - '127.0.0.1:${PUBLIC_PORT:-8090}:8080'
+    depends_on:
+      backend: {condition: service_healthy}
+    networks: [application]
+    healthcheck:
+      test: [CMD-SHELL, 'wget -q -O /dev/null http://127.0.0.1:8080/api/v1/health']
+      interval: 5s
+      timeout: 4s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /data:uid=10001,gid=10001,mode=0700
+      - /config:uid=10001,gid=10001,mode=0700
+      - /tmp:mode=1777
+    security_opt: [no-new-privileges:true]
+
+  file-monitor:
+    profiles: [monitoring-future]
+    build: ./agent
+    networks: [application]
+    restart: 'no'
+
+  test-postgres:
+    profiles: [test]
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: sgsi_native_test
+      POSTGRES_USER: native_test
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Required}
+    tmpfs: [/var/lib/postgresql/data]
+    networks: [test-database]
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U native_test -d sgsi_native_test']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend-tests:
+    profiles: [test]
+    image: sgsi-zta-native-backend:local
+    pull_policy: never
+    environment:
+      TEST_DATABASE_URL: postgresql+psycopg://native_test:${POSTGRES_PASSWORD:?Required}@test-postgres:5432/sgsi_native_test
+    depends_on:
+      test-postgres: {condition: service_healthy}
+    networks: [test-database]
+    command: [pytest, -q, -p, no:cacheprovider]
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+
+volumes:
+  native-postgres:
+networks:
+  application:
+  database:
+    internal: true
+  test-database:
+    internal: true

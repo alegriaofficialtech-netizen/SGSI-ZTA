@@ -1,0 +1,14 @@
+{
+  "system_identifier": "HOSPITAL-CORE-DEMO-01",
+  "environment": "academic-simulation",
+  "synthetic": true,
+  "telemetry_interval_seconds": 60,
+  "service_endpoints": {
+    "triage": "http://127.0.0.1:8000/api/v1/clinical/triage",
+    "admission": "http://127.0.0.1:8000/api/v1/clinical/admission"
+  },
+  "flags": {
+    "maintenance_mode": false,
+    "audit_verbose": true
+  }
+}

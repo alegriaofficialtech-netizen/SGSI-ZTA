@@ -1,0 +1,11 @@
+asset_code,name,asset_type,department,owner_username,criticality,classification,status,monitoring_enabled,hostname_demo,ip_address_demo,location_demo,synthetic
+SRV-HIS-01,Servidor HIS Demo,Server,TI,admin.demo,HIGH,CONFIDENTIAL,ACTIVE,true,srv-his-demo,192.0.2.10,Centro de datos Demo,true
+DB-HIS-01,Base de Datos HIS Demo,Database,TI,admin.demo,CRITICAL,RESTRICTED,ACTIVE,true,db-his-demo,192.0.2.11,Centro de datos Demo,true
+PC-ADM-01,PC Admisión Demo,Desktop,Admisión,admision.demo,MEDIUM,INTERNAL,ACTIVE,true,pc-adm-demo,198.51.100.10,Admisión Demo,true
+LAP-MED-01,Laptop Médico Demo,Laptop,Medicina,medico.demo,HIGH,CONFIDENTIAL,ACTIVE,true,lap-med-demo,198.51.100.11,Medicina Demo,true
+PC-FAR-01,PC Farmacia Demo,Desktop,Farmacia,farmacia.demo,MEDIUM,INTERNAL,ACTIVE,false,pc-far-demo,198.51.100.12,Farmacia Demo,true
+PC-LAB-01,PC Laboratorio Demo,Desktop,Laboratorio,laboratorio.demo,HIGH,CONFIDENTIAL,ACTIVE,false,pc-lab-demo,198.51.100.13,Laboratorio Demo,true
+SW-ADM-01,Sistema Administrativo Demo,Software,Administración,admin.demo,MEDIUM,INTERNAL,ACTIVE,false,sw-adm-demo,,Administración Demo,true
+NET-LAB-01,Switch Laboratorio Demo,Network Device,Laboratorio,admin.demo,MEDIUM,INTERNAL,ACTIVE,false,net-lab-demo,203.0.113.10,Laboratorio Demo,true
+BKP-HIS-01,Backup HIS Demo,Backup,TI,admin.demo,CRITICAL,RESTRICTED,ACTIVE,false,bkp-his-demo,192.0.2.12,Centro de datos Demo,true
+FW-LAB-01,Firewall Laboratorio Demo,Firewall,TI,admin.demo,HIGH,INTERNAL,ACTIVE,false,fw-lab-demo,203.0.113.11,Perímetro Demo,true

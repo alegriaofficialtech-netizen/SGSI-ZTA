@@ -1,0 +1,59 @@
+========================================================================
+ GUIA RAPIDA DE INSTALACION Y EJECUCION (VERSION DE EVALUACION / DEMO)
+========================================================================
+
+Estimado cliente,
+Para levantar y evaluar el entorno de demostracion de la plataforma 
+SGSI + Zero Trust en su equipo local, siga estos sencillos pasos:
+
+------------------------------------------------------------------------
+1. REQUISITOS PREVIOS EN SU COMPUTADORA (Solo si no los tiene instalados):
+------------------------------------------------------------------------
+- Python 3.12 o superior:
+  Descarga: https://www.python.org/downloads/
+  *MUY IMPORTANTE*: Durante la instalacion, marque la casilla que dice:
+  [X] "Add python.exe to PATH" (en la parte inferior de la primera ventana).
+
+- Node.js (Version LTS recomendada):
+  Descarga: https://nodejs.org/
+
+------------------------------------------------------------------------
+2. INICIAR LA PLATAFORMA:
+------------------------------------------------------------------------
+1. Descomprima este archivo .rar en cualquier carpeta de su equipo.
+2. Haga DOBLE CLIC en el archivo:
+   
+   iniciar-demo.bat
+
+3. El sistema configurara automaticamente los paquetes necesarios 
+   y abrira el navegador en la direccion:
+   
+   http://localhost:5173
+
+------------------------------------------------------------------------
+3. CREDENCIALES DE ACCESO DEMO:
+------------------------------------------------------------------------
+Utilice cualquiera de las cuentas de prueba disponibles:
+
+- Cuenta de Admision:
+  Usuario: admision.demo
+  Clave:   Demo!Aa9-12345678
+
+- Cuenta de Enfermeria:
+  Usuario: enfermeria.demo
+  Clave:   Demo!Aa9-12345678
+
+- Cuenta de Auditoria:
+  Usuario: auditor.demo
+  Clave:   Demo!Aa9-12345678
+
+(Nota: Las cuentas 'admin.demo' y 'medico.demo' tienen politica de 
+seguridad Zero Trust con MFA obligatorio y requieren configurar TOTP 
+desde una aplicacion movil como Google Authenticator).
+
+------------------------------------------------------------------------
+4. PARA DETENER EL SISTEMA:
+------------------------------------------------------------------------
+Presione cualquier tecla dentro de la ventana negra de la terminal 
+para cerrar los servicios locales.
+========================================================================

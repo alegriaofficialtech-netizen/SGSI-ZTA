@@ -1,0 +1,32 @@
+services:
+  backend:
+    environment:
+      COOKIE_SECURE: 'true'
+      ALLOWED_ORIGINS: ${DEMO_ALLOWED_ORIGINS:?Run scripts/demo.py up}
+      ALLOWED_HOSTS: ${DEMO_ALLOWED_HOSTS:?Run scripts/demo.py up}
+  demo-gateway:
+    image: sgsi-zta-native-frontend:local
+    user: '10001:10001'
+    command: [caddy, run, --config, /etc/caddy/DemoCaddyfile, --adapter, caddyfile]
+    networks: [application, demo-edge]
+    read_only: true
+    tmpfs:
+      - /data:uid=10001,gid=10001,mode=0700
+      - /config:uid=10001,gid=10001,mode=0700
+      - /tmp:mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+  cloudflared:
+    image: cloudflare/cloudflared:2026.9.3
+    user: '65532:65532'
+    command: [tunnel, --no-autoupdate, --url, 'http://demo-gateway:8081']
+    depends_on: [demo-gateway]
+    networks: [demo-edge]
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: 'no'
+networks:
+  demo-edge:

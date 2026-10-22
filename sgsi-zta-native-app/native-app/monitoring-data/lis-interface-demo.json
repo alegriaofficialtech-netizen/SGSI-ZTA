@@ -1,0 +1,11 @@
+{
+  "interface_name": "LIS-HL7-DEMO-GATEWAY",
+  "version": "2.5.1-demo",
+  "synthetic": true,
+  "protocols": [
+    "HL7v2-DEMO",
+    "FHIR-R4-DEMO"
+  ],
+  "buffer_size_kb": 512,
+  "auto_ack": true
+}

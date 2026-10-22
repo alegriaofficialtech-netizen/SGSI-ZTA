@@ -1,0 +1,22 @@
+{
+  "hospital_unit": "UNIDAD-DEMO-ACADEMICA-01",
+  "generated_at": "2026-10-01T08:00:00Z",
+  "synthetic": true,
+  "schema_version": "1.0-demo",
+  "patients": [
+    {
+      "id": "PAT-DEMO-001",
+      "display_name": "Paciente Ficticio Alfa",
+      "triage_category": "STANDARD",
+      "admission_status": "OBSERVATION",
+      "synthetic": true
+    },
+    {
+      "id": "PAT-DEMO-002",
+      "display_name": "Paciente Ficticio Beta",
+      "triage_category": "URGENT",
+      "admission_status": "ADMITTED",
+      "synthetic": true
+    }
+  ]
+}

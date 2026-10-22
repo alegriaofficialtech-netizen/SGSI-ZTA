@@ -1,0 +1,15 @@
+*
+!backend/
+!backend/**
+!data/
+!data/synthetic/
+!data/synthetic/**
+!monitoring-data/
+!monitoring-data/**
+backend/.venv
+backend/**/__pycache__
+backend/.pytest_cache
+backend/.ruff_cache
+backend/.env*
+backend/*.db
+backend/data

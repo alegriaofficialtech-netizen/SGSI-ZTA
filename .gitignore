@@ -1,0 +1,34 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Node dependencies
+node_modules/
+.npm/
+
+# Logs
+*.log
+tunnel.log
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*.egg-info/
+
+# Environment files with private secrets
+.env
+.env.demo
+.private/
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# OS files
+.DS_Store
+Thumbs.db

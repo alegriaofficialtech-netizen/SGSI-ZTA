@@ -1,0 +1,18 @@
+{
+    admin off
+}
+:8081 {
+    header {
+        Strict-Transport-Security "max-age=86400"
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        Referrer-Policy same-origin
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        -Server
+    }
+    route {
+        @private_paths path /docs /redoc /openapi.json /api/v1/docs /api/v1/redoc /api/v1/openapi.json /debug* /internal* /admin-api* /api/debug* /api/internal* /api/admin-api*
+        respond @private_paths 404
+        reverse_proxy frontend:8080
+    }
+}

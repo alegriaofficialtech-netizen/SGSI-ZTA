@@ -1,0 +1,179 @@
+{
+  "timestamp": "2026-10-03T20:54:12.795268+00:00",
+  "milestone": "M2 — Native MFA + Temporary Public Demo",
+  "precheck": {
+    "checkpoint": "fe9f9e5",
+    "tag": "v0.1.0-native-auth",
+    "backend_postgresql": {
+      "passed": 30,
+      "seconds": 73.94,
+      "warnings": 1
+    },
+    "frontend": {
+      "passed": 2
+    },
+    "build": "PASS"
+  },
+  "backend_sqlite": {
+    "passed": 56,
+    "seconds": 43.17,
+    "warnings": 1
+  },
+  "backend_postgresql": {
+    "passed": 56,
+    "seconds": 130.7,
+    "warnings": 1,
+    "database": "sgsi_native_test"
+  },
+  "frontend": {
+    "passed": 8,
+    "files": 2
+  },
+  "typescript_vite_build": "PASS",
+  "docker_build": "PASS",
+  "eslint": "PASS",
+  "prettier": "PASS",
+  "ruff": "PASS",
+  "npm_audit_vulnerabilities": 0,
+  "alembic_head": "0002_mfa",
+  "alembic_check": "No new upgrade operations detected",
+  "deployed_initial": {
+    "status": "PASS",
+    "phase": "initial",
+    "timestamp": "2026-10-03T20:46:04.037712Z",
+    "checks": {
+      "frontend_same_origin": "PASS",
+      "database_connected": "PASS",
+      "docs_debug_blocked": "PASS",
+      "medico.demo_incomplete_denied": "PASS",
+      "medico.demo_invalid_denied": "PASS",
+      "medico.demo_valid_allowed": "PASS",
+      "admin.demo_incomplete_denied": "PASS",
+      "admin.demo_invalid_denied": "PASS",
+      "admin.demo_valid_allowed": "PASS",
+      "admision_no_mfa": "PASS",
+      "refresh_logout": "PASS",
+      "migrations_audit": "PASS"
+    }
+  },
+  "deployed_persistence": {
+    "status": "PASS",
+    "phase": "persistence",
+    "timestamp": "2026-10-03T20:48:18.114945Z",
+    "checks": {
+      "frontend_same_origin": "PASS",
+      "database_connected": "PASS",
+      "docs_debug_blocked": "PASS",
+      "medico.demo_incomplete_denied": "PASS",
+      "medico.demo_invalid_denied": "PASS",
+      "medico.demo_valid_allowed": "PASS",
+      "admin.demo_incomplete_denied": "PASS",
+      "admin.demo_invalid_denied": "PASS",
+      "admin.demo_valid_allowed": "PASS",
+      "admision_no_mfa": "PASS",
+      "refresh_logout": "PASS",
+      "migrations_audit": "PASS"
+    }
+  },
+  "deployed_public": {
+    "status": "PASS",
+    "phase": "public",
+    "timestamp": "2026-10-03T20:50:24.913151Z",
+    "checks": {
+      "frontend_same_origin": "PASS",
+      "database_connected": "PASS",
+      "docs_debug_blocked": "PASS",
+      "medico.demo_incomplete_denied": "PASS",
+      "medico.demo_invalid_denied": "PASS",
+      "medico.demo_valid_allowed": "PASS",
+      "secure_httponly_cookies": "PASS",
+      "admin.demo_incomplete_denied": "PASS",
+      "admin.demo_invalid_denied": "PASS",
+      "admin.demo_valid_allowed": "PASS",
+      "admision_no_mfa": "PASS",
+      "refresh_logout": "PASS",
+      "migrations_audit": "PASS"
+    }
+  },
+  "ui": {
+    "status": "PASS",
+    "database": "isolated SQLite UI QA",
+    "checks": [
+      "login responsive desktop tablet mobile",
+      "setup QR present and masked in evidence",
+      "incomplete MFA denied",
+      "invalid OTP denied visibly",
+      "valid OTP allowed and responsive dashboard",
+      "enabled account challenges instead of exposing QR",
+      "repeat login with fresh OTP succeeds",
+      "admision directly enters dashboard"
+    ],
+    "browser_errors": 0,
+    "screenshots": "12; QR masked; no recovery code or password captured"
+  },
+  "external_public_http": {
+    "status": "PASS",
+    "location": "Windows client outside the deployed Linux host, HTTPS through Cloudflare",
+    "url": "https://geographic-touring-belt-alcohol.trycloudflare.com",
+    "results": {
+      "/": 200,
+      "/login": 200,
+      "/mfa": 200,
+      "/api/v1/health": 200,
+      "/api/v1/users": 401,
+      "/docs": 404,
+      "/redoc": 404,
+      "/openapi.json": 404,
+      "/api/v1/docs": 404,
+      "/api/v1/openapi.json": 404
+    }
+  },
+  "external_public_browser": {
+    "status": "PASS",
+    "location": "Windows external browser over Cloudflare HTTPS",
+    "login_visible": true,
+    "same_origin": true,
+    "csrf_secure": true,
+    "browser_errors": 0,
+    "viewports": [
+      "desktop",
+      "tablet",
+      "mobile"
+    ]
+  },
+  "exposure": {
+    "status": "PASS",
+    "backend_postgres_gateway_tunnel_published_ports": false,
+    "frontend_bind": "127.0.0.1:8090",
+    "docker_tcp_public": false,
+    "postgres_host_listener": false
+  },
+  "secret_scan": {
+    "status": "PASS",
+    "server_files_checked": 121,
+    "scope": "native source, actual build, logs, evidence against server MFA/application/recovery secrets; current Git files local known secrets and JWT/private-key patterns",
+    "negative_control": "PASS; actual MFA leak caught only in memory",
+    "historical_all_commits_audit": false
+  },
+  "legacy": {
+    "source_paths_unchanged": 124,
+    "preexisting_deleted_path_preserved": true
+  },
+  "public_url": "https://geographic-touring-belt-alcohol.trycloudflare.com",
+  "M0": "PASS",
+  "M1": "PASS",
+  "M2": "PASS",
+  "M3": "NOT_IMPLEMENTED",
+  "notes": [
+    "Starlette TestClient/httpx deprecation warning",
+    "MFA synthetic accounts enrolled during acceptance; recovery handoff encrypted server-only",
+    "No automatic commit or tag"
+  ],
+  "final_runtime": {
+    "backend": "healthy",
+    "frontend": "healthy",
+    "postgres": "healthy",
+    "demo_gateway": "running",
+    "cloudflared": "running"
+  }
+}
